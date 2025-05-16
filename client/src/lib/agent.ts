@@ -1,6 +1,8 @@
 export interface Message {
   role: "user" | "assistant" | "system";
   content: string;
+  timestamp?: string;
+  id?: string;
 }
 
 export interface AgentRequest {

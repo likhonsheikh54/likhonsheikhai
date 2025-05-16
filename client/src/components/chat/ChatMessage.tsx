@@ -92,7 +92,7 @@ export default function ChatMessage({ message, isLastMessage = false }: ChatMess
           <div className="bg-primary/20 rounded-2xl rounded-tr-sm px-3 py-2 sm:px-4 sm:py-2 inline-block">
             <p className="text-sm sm:text-base">{message.content}</p>
             <div className="text-xs opacity-70 text-right select-none mt-1">
-              {new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              {message.timestamp ? new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
             </div>
           </div>
         ) : (

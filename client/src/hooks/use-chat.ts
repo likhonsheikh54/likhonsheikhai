@@ -21,6 +21,8 @@ export function useChat() {
       const userMessage: Message = {
         role: "user",
         content: input,
+        timestamp: new Date().toISOString(),
+        id: `user-${Date.now()}`
       };
       
       // Add user message immediately
@@ -29,9 +31,15 @@ export function useChat() {
       setIsLoading(true);
       
       // Add an empty assistant message that will be updated
+      const assistantMessageId = `assistant-${Date.now()}`;
       setMessages((prev) => [
         ...prev, 
-        { role: "assistant", content: "" }
+        { 
+          role: "assistant", 
+          content: "",
+          timestamp: new Date().toISOString(),
+          id: assistantMessageId
+        }
       ]);
       
       try {
