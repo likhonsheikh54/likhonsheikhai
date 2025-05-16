@@ -2,12 +2,35 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Likhon Sheikh AI Coding Agent</title>
-    <meta name="description" content="An autonomous AI coding agent specialized in full-stack development, Web3, and cybersecurity, helping developers with code generation and editing." />
-    <meta property="og:title" content="Likhon Sheikh AI Coding Agent" />
-    <meta property="og:description" content="An intelligent coding assistant for developers" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5" />
+    <title>Likhon Sheikh AI Coding Agent | Full-Stack Development Assistant</title>
+    <meta name="description" content="An autonomous AI coding agent specialized in full-stack development, Web3, and cybersecurity. Generate code, create UIs, and build complete applications with natural language commands." />
+    
+    <!-- PWA Support -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#18181B" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="AI Agent" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    
+    <!-- SEO Tags -->
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Likhon Sheikh" />
+    <meta name="keywords" content="AI coding, code generation, full-stack development, AI coding agent, programming assistant, Web3, cybersecurity, code assistant, developer tools" />
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Likhon Sheikh AI Coding Agent | Advanced Development Assistant" />
+    <meta property="og:description" content="Your AI pair programmer for full-stack development, Web3, and cybersecurity. Generate code, create UI components, and build complete applications with natural language." />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content="/social-preview.png" />
+    <meta property="og:url" content="https://likhonsheikh.ai" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Likhon Sheikh AI Coding Agent" />
+    <meta name="twitter:description" content="AI-powered coding assistant for developers" />
+    <meta name="twitter:image" content="/social-preview.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -87,6 +110,19 @@
           hljs.highlightElement(el);
         });
       });
+      
+      // Register Service Worker for PWA
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js')
+            .then(registration => {
+              console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            })
+            .catch(error => {
+              console.log('ServiceWorker registration failed: ', error);
+            });
+        });
+      }
     </script>
   </body>
 </html>

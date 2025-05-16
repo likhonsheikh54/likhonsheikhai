@@ -66,15 +66,15 @@ export default function ChatMessage({ message, isLastMessage = false }: ChatMess
   
   return (
     <div className={cn(
-      "flex items-start gap-3",
-      isUser ? "max-w-3xl ml-auto" : "max-w-3xl"
+      "flex items-start gap-2 sm:gap-3 mb-4 md:mb-6",
+      isUser ? "max-w-[95%] sm:max-w-3xl ml-auto" : "max-w-[95%] sm:max-w-3xl"
     )}>
       {!isUser && (
-        <Avatar className="h-8 w-8 rounded-full bg-primary flex-shrink-0 flex items-center justify-center">
+        <Avatar className="h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-primary flex-shrink-0 flex items-center justify-center">
           <AvatarFallback>LS</AvatarFallback>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-primary-foreground"
+            className="h-4 w-4 sm:h-5 sm:w-5 text-primary-foreground"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -89,26 +89,36 @@ export default function ChatMessage({ message, isLastMessage = false }: ChatMess
       
       <div className={cn("flex-1", isUser && "order-2")}>
         {isUser ? (
-          <div className="bg-primary/20 rounded-2xl rounded-tr-sm px-4 py-2 inline-block">
-            <p>{message.content}</p>
+          <div className="bg-primary/20 rounded-2xl rounded-tr-sm px-3 py-2 sm:px-4 sm:py-2 inline-block">
+            <p className="text-sm sm:text-base">{message.content}</p>
+            <div className="text-xs opacity-70 text-right select-none mt-1">
+              {new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </div>
           </div>
         ) : (
-          <div className="prose prose-invert prose-sm max-w-none break-words">
-            <p dangerouslySetInnerHTML={{ __html: renderContent().replace(/\n/g, '<br/>') }} />
+          <div className="prose prose-xs sm:prose-sm dark:prose-invert max-w-none break-words">
+            <div className="bg-muted/50 rounded-2xl rounded-tl-sm px-3 py-2 sm:px-4 sm:py-3">
+              <p dangerouslySetInnerHTML={{ __html: renderContent().replace(/\n/g, '<br/>') }} />
+              
+              <div className="text-xs opacity-70 text-right select-none mt-1">
+                {new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              </div>
+            </div>
             
             {hasPlan && <PlanApproval />}
             
             {/* Code blocks */}
             {codeBlocks.map((block, index) => (
-              <CodeBlock 
-                key={index} 
-                code={block.code} 
-                filename={block.filename}
-              >
-                {isLastMessage && index === codeBlocks.length - 1 && (
-                  <TypingIndicator />
-                )}
-              </CodeBlock>
+              <div className="mt-3" key={index}>
+                <CodeBlock 
+                  code={block.code} 
+                  filename={block.filename}
+                >
+                  {isLastMessage && index === codeBlocks.length - 1 && (
+                    <TypingIndicator />
+                  )}
+                </CodeBlock>
+              </div>
             ))}
             
             {isLastMessage && !hasCode && <TypingIndicator />}
@@ -120,7 +130,7 @@ export default function ChatMessage({ message, isLastMessage = false }: ChatMess
       </div>
       
       {isUser && (
-        <Avatar className="h-8 w-8 rounded-full bg-muted flex-shrink-0 overflow-hidden order-1">
+        <Avatar className="h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-muted flex-shrink-0 overflow-hidden order-1">
           <AvatarFallback>U</AvatarFallback>
           <svg
             xmlns="http://www.w3.org/2000/svg"

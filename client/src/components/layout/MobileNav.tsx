@@ -49,12 +49,11 @@ export default function MobileNav() {
   return (
     <nav className="md:hidden flex items-center justify-around border-t border-border bg-background/95 backdrop-blur-sm py-2 sticky bottom-0 z-10 shadow-md">
       {navItems.map((item) => (
-        <Link
-          key={item.id}
-          href={item.path}
-          onClick={() => setActivePath(item.path)}
-        >
-          <a className="w-full">
+        <div key={item.id} className="w-full">
+          <Link
+            href={item.path}
+            onClick={() => setActivePath(item.path)}
+          >
             <div
               className={cn(
                 "flex flex-col items-center justify-center p-2 rounded transition-colors duration-200",
@@ -69,8 +68,8 @@ export default function MobileNav() {
                 <span className="absolute bottom-1 h-1 w-1 rounded-full bg-primary"/>
               )}
             </div>
-          </a>
-        </Link>
+          </Link>
+        </div>
       ))}
     </nav>
   );
