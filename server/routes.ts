@@ -1,125 +1,175 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+import fetch from "node-fetch";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Agent API endpoint
+  // AI Agent API endpoint
   app.post("/api/agent", async (req, res) => {
     try {
       const { messages, provider = "groq", model, temperature = 0.14, maxTokens = 2048 } = req.body;
       
       if (!messages || !Array.isArray(messages)) {
-        return res.status(400).json({ error: { message: "Messages array is required" } });
+        return res.status(400).json({ 
+          error: { message: "Invalid request: messages must be an array" } 
+        });
       }
       
-      // Process the request based on provider
-      // This is a simplified version - in a real application, 
-      // you would actually call the AI provider APIs
-      const responseContent = generateMockResponse(messages);
+      // Logic for different providers
+      let apiUrl, headers, body;
       
-      // Return the generated text with a small delay to simulate network request
-      setTimeout(() => {
-        res.json({ content: responseContent });
-      }, 1000);
+      if (provider === "groq") {
+        apiUrl = "https://api.groq.com/openai/v1/chat/completions";
+        headers = {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${process.env.GROQ_API_KEY || "demo-key"}`,
+        };
+        body = JSON.stringify({
+          model: model || "llama3-70b-8192",
+          messages,
+          temperature,
+          max_tokens: maxTokens,
+        });
+      } else if (provider === "openrouter") {
+        apiUrl = "https://openrouter.ai/api/v1/chat/completions";
+        headers = {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY || "demo-key"}`,
+          "HTTP-Referer": "https://replit.com",
+        };
+        body = JSON.stringify({
+          model: model || "anthropic/claude-3-opus:beta",
+          messages,
+          temperature,
+          max_tokens: maxTokens,
+        });
+      } else {
+        return res.status(400).json({ 
+          error: { message: "Unsupported provider" } 
+        });
+      }
       
-    } catch (error: any) {
-      console.error("Error in agent API:", error);
-      res.status(500).json({ 
-        error: { message: error.message || "An error occurred during agent processing" }
+      // Make request to the AI provider
+      try {
+        const apiResponse = await fetch(apiUrl, {
+          method: "POST",
+          headers,
+          body,
+        });
+        
+        if (!apiResponse.ok) {
+          const errorData = await apiResponse.text();
+          console.error(`Provider error (${provider}):`, errorData);
+          return res.status(apiResponse.status).json({
+            error: { 
+              message: `Error from ${provider}: ${apiResponse.statusText}`,
+              details: errorData
+            }
+          });
+        }
+        
+        const data = await apiResponse.json();
+        const content = data.choices?.[0]?.message?.content || "";
+        
+        return res.json({ content });
+      } catch (error) {
+        console.error(`API request error (${provider}):`, error);
+        return res.status(500).json({
+          error: { message: `Failed to communicate with ${provider}` }
+        });
+      }
+    } catch (error) {
+      console.error("Agent API error:", error);
+      return res.status(500).json({
+        error: { message: "Internal server error" }
       });
     }
   });
   
-  // Get available models endpoint
-  app.get("/api/models", (req, res) => {
-    const { provider } = req.query;
+  // Streaming API endpoint for real-time responses
+  app.post("/api/agent/stream", async (req, res) => {
+    const { messages, provider = "groq", model, temperature = 0.14, maxTokens = 2048 } = req.body;
     
-    if (!provider) {
-      return res.status(400).json({ error: { message: "Provider parameter is required" } });
+    if (!messages || !Array.isArray(messages)) {
+      return res.status(400).json({ 
+        error: { message: "Invalid request: messages must be an array" } 
+      });
     }
     
-    // Return mock models based on provider
-    const models = getModelsForProvider(provider as string);
-    res.json(models);
+    // Set headers for SSE
+    res.setHeader("Content-Type", "text/event-stream");
+    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("Connection", "keep-alive");
+    
+    // Logic for different providers - using non-streaming for demo
+    let apiUrl, headers, body;
+    
+    if (provider === "groq") {
+      apiUrl = "https://api.groq.com/openai/v1/chat/completions";
+      headers = {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${process.env.GROQ_API_KEY || "demo-key"}`,
+      };
+      body = JSON.stringify({
+        model: model || "llama3-70b-8192",
+        messages,
+        temperature,
+        max_tokens: maxTokens,
+      });
+    } else if (provider === "openrouter") {
+      apiUrl = "https://openrouter.ai/api/v1/chat/completions";
+      headers = {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY || "demo-key"}`,
+        "HTTP-Referer": "https://replit.com",
+      };
+      body = JSON.stringify({
+        model: model || "anthropic/claude-3-opus:beta",
+        messages,
+        temperature,
+        max_tokens: maxTokens,
+      });
+    } else {
+      return res.status(400).json({ 
+        error: { message: "Unsupported provider" } 
+      });
+    }
+    
+    try {
+      const apiResponse = await fetch(apiUrl, {
+        method: "POST",
+        headers,
+        body,
+      });
+      
+      if (!apiResponse.ok) {
+        const errorData = await apiResponse.text();
+        console.error(`Provider error (${provider}):`, errorData);
+        res.write(`Error from ${provider}: ${apiResponse.statusText}`);
+        res.end();
+        return;
+      }
+      
+      const data = await apiResponse.json();
+      const content = data.choices?.[0]?.message?.content || "";
+      
+      // Simulate streaming by sending the response in chunks
+      const chunks = content.match(/.{1,20}/g) || [];
+      
+      for (const chunk of chunks) {
+        res.write(chunk);
+        // Add a small delay to simulate streaming
+        await new Promise(resolve => setTimeout(resolve, 50));
+      }
+      
+      res.end();
+    } catch (error) {
+      console.error(`API request error (${provider}):`, error);
+      res.write(`Failed to communicate with ${provider}`);
+      res.end();
+    }
   });
 
   const httpServer = createServer(app);
   return httpServer;
-}
-
-// Helper function to generate mock responses - would be replaced with actual AI calls
-function generateMockResponse(messages: any[]): string {
-  const lastMessage = messages[messages.length - 1];
-  
-  if (!lastMessage || !lastMessage.content) {
-    return "I didn't receive a valid message. Please try again.";
-  }
-  
-  const userMessage = lastMessage.content.toLowerCase();
-  
-  if (userMessage.includes("hello") || userMessage.includes("hi")) {
-    return "Hello! I'm Likhon Sheikh, your AI coding assistant. How can I help you today?";
-  }
-  
-  if (userMessage.includes("react") && userMessage.includes("component")) {
-    return `I'd be happy to help you create a React component! Here's an example of a simple button component:
-
-\`\`\`tsx
-import React from 'react';
-
-interface ButtonProps {
-  primary?: boolean;
-  size?: 'small' | 'medium' | 'large';
-  label: string;
-  onClick?: () => void;
-}
-
-export const Button: React.FC<ButtonProps> = ({
-  primary = false,
-  size = 'medium',
-  label,
-  onClick,
-}) => {
-  const baseStyles = 'rounded-md font-medium';
-  const sizeStyles = {
-    small: 'px-2 py-1 text-sm',
-    medium: 'px-4 py-2',
-    large: 'px-6 py-3 text-lg',
-  };
-  const colorStyles = primary 
-    ? 'bg-primary text-white hover:bg-primary/90' 
-    : 'bg-gray-200 text-gray-800 hover:bg-gray-300';
-  
-  return (
-    <button
-      type="button"
-      className={\`\${baseStyles} \${sizeStyles[size]} \${colorStyles}\`}
-      onClick={onClick}
-    >
-      {label}
-    </button>
-  );
-};
-\`\`\`
-
-This is a reusable button component with TypeScript types that accepts different props to customize its appearance. Would you like me to explain any part of this code in more detail?`;
-  }
-  
-  if (userMessage.includes("approve")) {
-    return "Great! I'll start implementing the plan right away. I'll provide you with detailed code and explanations as we go along. Let me begin with the first step...";
-  }
-  
-  return "I'm here to help with your coding tasks. Could you provide more details about what you'd like me to assist you with?";
-}
-
-// Helper function to get models for a provider
-function getModelsForProvider(provider: string): string[] {
-  switch (provider.toLowerCase()) {
-    case 'groq':
-      return ['compound-beta', 'llama3-8b', 'llama3-70b', 'mixtral-8x7b'];
-    case 'openrouter':
-      return ['deepseek/deepseek-prover-v2:free', 'anthropic/claude-3-opus:beta', 'meta-llama/llama-3-70b-instruct'];
-    default:
-      return [];
-  }
 }

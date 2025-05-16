@@ -3,11 +3,90 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>Likhon Sheikh AI Coding Agent</title>
+    <meta name="description" content="An autonomous AI coding agent specialized in full-stack development, Web3, and cybersecurity, helping developers with code generation and editing." />
+    <meta property="og:title" content="Likhon Sheikh AI Coding Agent" />
+    <meta property="og:description" content="An intelligent coding assistant for developers" />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <style>
+      html {
+        font-family: "Inter", sans-serif;
+      }
+      code, pre, .font-mono {
+        font-family: "JetBrains Mono", monospace;
+      }
+      .typing-indicator span {
+        animation: blink 1.4s infinite;
+        animation-fill-mode: both;
+        height: 10px;
+        width: 10px;
+        border-radius: 50%;
+        display: inline-block;
+        margin: 0 1px;
+      }
+      .typing-indicator span:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .typing-indicator span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      @keyframes blink {
+        0% { opacity: 0.1; }
+        20% { opacity: 1; }
+        100% { opacity: 0.1; }
+      }
+      .scroll-thin::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+      }
+      .scroll-thin::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .scroll-thin::-webkit-scrollbar-thumb {
+        background: #4B5563;
+        border-radius: 4px;
+      }
+      .scroll-thin::-webkit-scrollbar-thumb:hover {
+        background: #6B7280;
+      }
+      .code-line {
+        display: block;
+        line-height: 1.5;
+      }
+      .hljs {
+        background: #1E1E1E;
+        color: #DCDCDC;
+        padding: 1em;
+        border-radius: 0.5rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.875rem;
+        overflow-x: auto;
+      }
+      .dark .hljs {
+        background: rgba(255, 255, 255, 0.05);
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
+    />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
     <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+      // Initialize hljs for syntax highlighting
+      document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('pre code').forEach((el) => {
+          hljs.highlightElement(el);
+        });
+      });
+    </script>
   </body>
 </html>
