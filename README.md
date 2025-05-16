@@ -1,131 +1,111 @@
 # Likhon Sheikh AI Coding Agent
 
-An advanced AI coding assistant built with modern web technologies, designed to help developers write code, build UIs, and implement complex features through natural language.
+A modern, optimized UI/UX for the Likhon Sheikh AI Coding Agent application integrating Vercel AI SDK for enhanced provider management and streaming responses.
 
-![Likhon Sheikh AI Coding Agent](/client/public/social-preview.png)
+![Likhon Sheikh AI Coding Agent](generated-icon.png)
 
-## Features
+## 🚀 Features
 
-- **AI-Powered Code Generation**: Convert natural language descriptions into fully functional code with best practices
-- **Multiple Language Support**: JavaScript, TypeScript, Python, Rust, Go, and many others
-- **Full-Stack Development**: From frontend UI to backend services, databases, and APIs
-- **Smart Versioning**: Track changes and roll back to previous versions when needed
-- **Multiple AI Providers**: Integrated with Groq, OpenRouter and other AI providers
-- **Progressive Web App**: Install on desktop or mobile for offline access
-- **Responsive Design**: Optimized for all device sizes from mobile to desktop
-- **Dark/Light Mode**: Choose the theme that works best for your environment
+- **Multi-Provider Architecture**: Seamless integration with Groq, OpenRouter, and other AI providers
+- **Modern UI Components**: Built with shadcn UI, Tailwind CSS, and Framer Motion
+- **Responsive Design**: Mobile-first approach with adaptive layouts
+- **Dark/Light Mode**: Full theme support with automatic system preference detection
+- **Advanced Animations**: Smooth, engaging user experiences with motion effects
+- **PWA Support**: Offline capabilities and app-like experience on mobile devices
+- **SEO Optimized**: Comprehensive meta tags, sitemap, and optimized content
+- **Database Integration**: PostgreSQL support with Drizzle ORM
+- **User Authentication**: Secure login and session management
+- **Conversation Management**: Save, restore, and manage chat interactions
+- **Checkpoint System**: Create restore points in conversations
 
-## Tech Stack
+## 💻 Tech Stack
 
-- **Frontend**: React, TailwindCSS, shadcn/ui components
-- **Backend**: Express.js with TypeScript
+- **Frontend**: React with TypeScript, Vite for fast builds
+- **Styling**: Tailwind CSS, shadcn components, Framer Motion
+- **State Management**: Context API with React Query for data fetching
+- **Backend**: Express with TypeScript
 - **Database**: PostgreSQL with Drizzle ORM
-- **State Management**: React Context API and TanStack Query
-- **AI Integration**: Vercel AI SDK with Groq and OpenRouter providers
-- **Deployment**: Vercel with optimized configurations
+- **Authentication**: Passport.js for secure user authentication
+- **AI Integration**: Vercel AI SDK for multiple provider support
+- **Deployment**: Replit Deployments with Vercel compatibility
 
-## Getting Started
+## 📊 Architecture
 
-### Prerequisites
+The application follows a modern full-stack architecture with:
 
-- Node.js 18+ (20.x recommended)
-- PostgreSQL database
-- API keys for AI providers (Optional)
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/likhonsheikh54/ai-coding-agent.git
-   cd ai-coding-agent
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Set up environment variables:
-   Create a `.env` file with the following:
-   ```
-   DATABASE_URL=your_postgresql_connection_string
-   OPENAI_API_KEY=your_openai_api_key (optional)
-   GROQ_API_KEY=your_groq_api_key (optional)
-   ```
-
-4. Initialize the database:
-   ```bash
-   npm run db:push
-   ```
-
-5. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-## Project Structure
+- **Clean Separation of Concerns**: UI components, data hooks, and business logic
+- **Responsive UI Layer**: Adaptive components for all device sizes
+- **Provider-Agnostic AI Layer**: Support multiple AI backends with unified interface
+- **Database Abstraction**: Type-safe database access with Drizzle ORM
+- **REST API**: Standard API endpoints for all functionality
 
 ```
-likhon-sheikh-ai-coding-agent/
-├── client/                  # Frontend code
-│   ├── public/              # Public assets
-│   │   ├── icons/           # PWA icons
-│   │   ├── manifest.json    # PWA manifest
-│   │   └── service-worker.js # PWA service worker
+├── client/           # Frontend application
+│   ├── public/       # Static assets, PWA manifest, SEO files
 │   └── src/
-│       ├── components/      # React components
-│       │   ├── chat/        # Chat interface components
-│       │   ├── layout/      # Layout components
-│       │   ├── marketing/   # Marketing page components
-│       │   └── ui/          # Shadcn UI components
-│       ├── contexts/        # React contexts
-│       ├── hooks/           # Custom React hooks
-│       ├── lib/             # Utility functions
-│       └── pages/           # Page components
-├── server/                  # Backend code
-│   ├── db.ts                # Database connection
-│   ├── index.ts             # Server entry point
-│   ├── routes.ts            # API routes
-│   ├── storage.ts           # Data storage interface
-│   └── vite.ts              # Vite server configuration
-├── shared/                  # Shared code
-│   └── schema.ts            # Database schema
-├── vercel.json              # Vercel deployment configuration
-└── package.json             # Project dependencies
+│       ├── components/ # UI components
+│       ├── contexts/   # React context providers
+│       ├── hooks/      # Custom React hooks
+│       ├── lib/        # Utilities and helper functions
+│       └── pages/      # Application pages
+├── server/           # Backend application
+│   ├── routes.ts     # API routes
+│   ├── storage.ts    # Database interface
+│   └── db.ts         # Database connection
+└── shared/           # Shared code between frontend and backend
+    └── schema.ts     # Database schema and types
 ```
 
-## API Documentation
+## 📱 UI Components
 
-The API provides endpoints for managing:
+The application includes several specialized UI components:
 
-- User authentication
-- Conversations and messages
-- AI completions and streaming
-- Checkpoints and version history
-- Settings and preferences
+- **ChatInterface**: Main conversation UI with message display and input
+- **Checkpoint Indicator**: Visual markers for conversation restore points
+- **Code Block**: Syntax-highlighted code display with copy functionality
+- **Implementation Plan**: Structured display of AI-generated project plans
+- **Animated UI Elements**: Loading indicators, transitions, and feedback
+- **Database Visualization**: Interactive display of database operations
+- **Text Shimmer Effects**: Animated text for improved user engagement
+- **Testimonials Section**: Social proof with automatic rotation
+- **Modern Navigation**: Responsive navigation with mobile menu
 
-For detailed API documentation, see [API.md](API.md).
+## 🔧 Installation
 
-## Contributing
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Set up environment variables (see `.env.example`)
+4. Initialize the database: `npm run db:push`
+5. Start development server: `npm run dev`
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+## 📝 API Reference
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+The backend provides several API endpoints:
 
-## License
+- **POST /api/chat**: Send messages to the AI agent
+- **GET /api/models/:provider**: Get available models for a provider
+- **POST /api/auth/login**: User authentication
+- **GET /api/conversations**: Get user conversation history
+- **POST /api/checkpoints**: Create a conversation checkpoint
+- **POST /api/checkpoints/:id/restore**: Restore to a checkpoint
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## 🎯 Future Enhancements
 
-## Acknowledgments
+- Enhanced code generation capabilities
+- Additional AI provider integrations
+- Real-time collaboration features
+- Advanced model fine-tuning options
+- Expanded plugin system for custom functionality
 
-- Built with love by [Likhon Sheikh](https://github.com/likhonsheikh54)
-- Inspired by modern AI coding assistants like GitHub Copilot and Replit's Ghostwriter
-- UI design inspired by Vercel, Replit and v0.dev
+## 📄 License
 
----
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-Made with ❤️ by Likhon Sheikh
+## 🙏 Acknowledgements
+
+- [shadcn/ui](https://ui.shadcn.com/) for the component system
+- [Vercel](https://vercel.com/) for the AI SDK
+- [Replit](https://replit.com/) for the hosting platform
+- [Framer Motion](https://www.framer.com/motion/) for animations
+- [Tailwind CSS](https://tailwindcss.com/) for styling
+- [Drizzle ORM](https://orm.drizzle.team/) for database access

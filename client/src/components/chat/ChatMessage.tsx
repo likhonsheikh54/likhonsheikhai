@@ -101,7 +101,7 @@ export default function ChatMessage({ message, isLastMessage = false }: ChatMess
               <p dangerouslySetInnerHTML={{ __html: renderContent().replace(/\n/g, '<br/>') }} />
               
               <div className="text-xs opacity-70 text-right select-none mt-1">
-                {new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                {message.timestamp ? new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
               </div>
             </div>
             
