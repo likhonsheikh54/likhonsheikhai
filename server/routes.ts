@@ -68,7 +68,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           });
         }
         
-        const data = await apiResponse.json();
+        const data = await apiResponse.json() as any;
         const content = data.choices?.[0]?.message?.content || "";
         
         return res.json({ content });
@@ -150,7 +150,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return;
       }
       
-      const data = await apiResponse.json();
+      const data = await apiResponse.json() as any;
       const content = data.choices?.[0]?.message?.content || "";
       
       // Simulate streaming by sending the response in chunks

@@ -1,0 +1,115 @@
+# Groq Chat UI - Folder Structure
+
+/groq-chat-ui/
+│
+├── assets/                      # Static assets
+│   ├── images/                  # Image files
+│   │   ├── logo.svg
+│   │   └── favicon.ico
+│   ├── fonts/                   # Custom fonts
+│   └── icons/                   # SVG icons
+│
+├── styles/                      # CSS and styling files
+│   ├── base/                    # Base styles
+│   │   ├── reset.css            # CSS reset
+│   │   ├── variables.css        # CSS variables
+│   │   └── typography.css       # Typography styles
+│   ├── components/              # Component-specific styles
+│   │   ├── chat.css             # Chat component styles
+│   │   ├── sidebar.css          # Sidebar styles
+│   │   ├── modals.css           # Modal styles
+│   │   └── buttons.css          # Button styles
+│   ├── themes/                  # Theme styles
+│   │   ├── light.css            # Light theme
+│   │   ├── dark.css             # Dark theme
+│   │   └── custom-themes.css    # Additional themes
+│   └── main.css                 # Main stylesheet (imports all others)
+│
+├── scripts/                     # JavaScript files
+│   ├── core/                    # Core functionality
+│   │   ├── api.js               # API interaction
+│   │   ├── chat.js              # Chat functionality
+│   │   ├── auth.js              # Authentication
+│   │   └── storage.js           # Local storage handling
+│   ├── components/              # Component scripts
+│   │   ├── sidebar.js           # Sidebar functionality
+│   │   ├── modals.js            # Modal handling
+│   │   └── settings.js          # Settings panel
+│   ├── features/                # Advanced features
+│   │   ├── multilingual.js      # Multilingual support
+│   │   ├── nlp-analysis.js      # NLP analysis
+│   │   ├── visualization.js     # Data visualization
+│   │   └── voice-commands.js    # Voice commands
+│   ├── utils/                   # Utility functions
+│   │   ├── formatters.js        # Text formatting
+│   │   ├── validators.js        # Input validation
+│   │   └── helpers.js           # Helper functions
+│   ├── integrations/            # Third-party integrations
+│   │   ├── monaco-editor.js     # Monaco editor integration
+│   │   ├── katex.js             # KaTeX math rendering
+│   │   └── html2canvas.js       # HTML2Canvas for exports
+│   ├── langchain/               # LangChain integration
+│   │   ├── config.js            # LangChain configuration
+│   │   ├── agents.js            # LangChain agents
+│   │   └── graphs.js            # LangGraph implementation
+│   └── main.js                  # Main JavaScript file
+│
+├── lib/                         # External libraries
+│   ├── langchain/               # LangChain libraries
+│   │   ├── core/                # LangChain core
+│   │   ├── langgraph/           # LangGraph
+│   │   └── langgraph-api/       # LangGraph API
+│   ├── next/                    # Next.js components
+│   ├── zod/                     # Zod validation
+│   └── other-libs/              # Other libraries
+│
+├── tools/                       # Development tools
+│   ├── build/                   # Build scripts
+│   │   ├── build.js             # Main build script
+│   │   └── minify.js            # Minification script
+│   ├── dev/                     # Development tools
+│   │   ├── server.js            # Development server
+│   │   └── hot-reload.js        # Hot reload functionality
+│   └── deploy/                  # Deployment scripts
+│       └── github-pages.js      # GitHub Pages deployment
+│
+├── docs/                        # Documentation
+│   ├── api/                     # API documentation
+│   ├── features/                # Feature documentation
+│   └── README.md                # Main documentation
+│
+├── index.html                   # Main HTML file
+├── README.md                    # Project README
+├── LICENSE                      # License file
+└── .gitignore                   # Git ignore file
+\`\`\`
+
+## Implementation Guide
+
+### 1. Setting Up the Folder Structure
+
+\`\`\`bash
+# Create main directories
+mkdir -p groq-chat-ui/{assets/{images,fonts,icons},styles/{base,components,themes},scripts/{core,components,features,utils,integrations,langchain},lib/{langchain/{core,langgraph,langgraph-api},next,zod,other-libs},tools/{build,dev,deploy},docs/{api,features}}
+
+# Create base files
+touch groq-chat-ui/index.html
+touch groq-chat-ui/README.md
+touch groq-chat-ui/.gitignore
+\`\`\`
+
+### 2. Moving Existing Files
+
+1. Move your existing CSS files to the appropriate folders in `styles/`:
+   - Main CSS to `styles/main.css`
+   - Component-specific styles to `styles/components/`
+   - Theme styles to `styles/themes/`
+
+2. Move your JavaScript files to the appropriate folders in `scripts/`:
+   - Core functionality to `scripts/core/`
+   - Feature implementations to `scripts/features/`
+   - Utility functions to `scripts/utils/`
+
+### 3. Integrating LangChain Libraries
+
+Create a configuration file for LangChain integration:
