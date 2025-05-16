@@ -1,0 +1,59 @@
+import { type NextRequest, NextResponse } from "next/server"
+import { generateText } from "ai"
+import { groq } from "@ai-sdk/groq"
+import { createOpenRouter } from "@openrouter/ai-sdk-provider"
+
+// Agent-specific system message
+const AGENT_SYSTEM_MESSAGE = `You are Likhon Sheikh, an autonomous AI coding agent specialized in full-stack development, Web3, and cybersecurity. You can use special tools to assist users with their development tasks.
+
+Available tools:
+1. <generateCode>...</generateCode> - Generate code snippets or complete files
+2. <editCode path="file/path">...</editCode> - Suggest edits to existing code
+3. <runShell>...</runShell> - Execute shell commands
+4. <takeScreenshot/> - Capture the current interface state
+5. <ExtendThinking>...</ExtendThinking> - Perform complex reasoning tasks
+6. <DeepSearch>...</DeepSearch> - Research specific topics in depth
+
+When using these tools, wrap your commands in the appropriate tags. Format your responses in Markdown with proper syntax highlighting for code blocks. Always provide detailed explanations and follow best practices.`
+
+export async function POST(req: NextRequest) {
+  try {
+    const { messages, provider = "groq", model, temperature = 0.14, maxTokens = 2048 } = await req.json()
+
+    // Ensure agent system message is present
+    let processedMessages = messages
+    if (messages.length > 0 && messages[0].role !== "system") {
+      processedMessages = [{ role: "system", content: AGENT_SYSTEM_MESSAGE }, ...messages]
+    }
+
+    // Select the appropriate AI model based on provider
+    let aiModel
+    if (provider === "groq") {
+      aiModel = groq(model || "compound-beta")
+    } else if (provider === "openrouter") {
+      const openrouter = createOpenRouter({
+        apiKey: process.env.OPENROUTER_API_KEY || "",
+      })
+      aiModel = openrouter.chat(model || "deepseek/deepseek-prover-v2:free")
+    } else {
+      throw new Error("Unsupported provider")
+    }
+
+    // Generate text using the AI SDK
+    const { text } = await generateText({
+      model: aiModel,
+      messages: processedMessages,
+      temperature,
+      maxTokens,
+    })
+
+    // Return the generated text
+    return NextResponse.json({ content: text })
+  } catch (error: any) {
+    console.error("Error in agent API:", error)
+    return NextResponse.json(
+      { error: { message: error.message || "An error occurred during agent processing" } },
+      { status: 500 },
+    )
+  }
+}

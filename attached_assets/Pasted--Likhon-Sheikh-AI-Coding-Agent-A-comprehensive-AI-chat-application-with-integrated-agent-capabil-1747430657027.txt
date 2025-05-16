@@ -1,0 +1,163 @@
+# Likhon Sheikh - AI Coding Agent
+
+A comprehensive AI chat application with integrated agent capabilities, powered by Groq and OpenRouter AI models.
+
+## Features
+
+### Advanced Chat UI
+
+- Multi-provider support (Groq and OpenRouter)
+- Model selection with customizable parameters
+- Conversation history and management
+- Dark/light mode theming
+- Code syntax highlighting
+- Markdown rendering
+- Responsive design for all devices
+
+### Agent UI
+
+- Tool-enabled AI agent capabilities
+- Specialized tools for coding tasks
+- Live tool usage tracking and statistics
+- Advanced agent system prompting
+- Guided tool usage with easy insert commands
+
+### Technical Implementation
+
+- React front-end with modular components
+- Express.js backend for secure API proxying
+- Local storage for conversation persistence
+- Streaming UI updates for real-time responses
+- Unified API endpoint with provider switching
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v14+)
+- npm or yarn
+- Groq API key
+- (Optional) OpenRouter API key for additional models
+
+### Installation
+
+1. Clone the repository
+2. Install dependencies:
+   ```
+   npm install
+   ```
+3. Set up your environment variables in `.env` file:
+   ```
+   REACT_APP_GROQ_API_KEY=your_groq_api_key
+   REACT_APP_OPENROUTER_API_KEY=your_openrouter_api_key (optional)
+   REACT_APP_SITE_URL=http://localhost:3000
+   REACT_APP_SITE_NAME=Likhon Sheikh AI Coding Assistant
+   PORT=5001
+   REACT_APP_API_URL=http://localhost:5001
+   ```
+
+### Running the Application
+
+To start the development server and client:
+
+```bash
+npm run dev
+```
+
+Or to run with the enhanced agent-focused startup script:
+
+```bash
+npm run dev:agent
+```
+
+## Agent Tools
+
+The agent provides access to specialized tools for development tasks:
+
+- **Generate Code**: Create new code snippets or files
+- **Edit Code**: Apply changes to existing code files
+- **Run Shell Commands**: Execute commands in your environment
+- **Take Screenshot**: Capture the current interface state
+- **Extended Thinking**: Perform complex reasoning tasks
+- **Deep Search**: Research specific topics in depth
+
+## Models
+
+### Groq Models
+
+- **Compound Beta (Full)**: Groq's most advanced model 
+- **LLaMA3 70B**: High-performance language model
+- **LLaMA3 8B**: Fast, efficient language model
+- **Gemma 7B-IT**: Google's instruction-tuned model
+- **Mixtral 8x7B**: Multi-expert language model
+
+### OpenRouter Models
+
+- **DeepSeek Prover v2**: Specialized model for logical reasoning and proof generation
+- **Phi-4 Reasoning**: Microsoft's model optimized for step-by-step reasoning
+
+## Architecture
+
+The application follows a client-server architecture:
+
+1. **Express Server**: Manages API keys and provides proxy endpoints
+2. **React Frontend**: Provides the UI and manages application state
+3. **Component Structure**: 
+   - `AgentChat.js`: Agent-focused chat interface
+   - `MultiModelApp.js`: General chat interface
+   - `LandingPage.js`: Application entry point
+4. **Custom Hooks**:
+   - `useAgentChat.js`: Handles agent-specific chat logic
+   - `useServerChat.js`: Manages general chat communications
+   
+## License
+
+This project is licensed under the MIT License.
+1. **Prompt Chaining**: Each LLM call processes the output of the previous one
+2. **Parallelization**: LLMs work simultaneously on different aspects of a task
+3. **Routing**: Classifies an input and directs it to a specialized followup task
+4. **Orchestrator-Worker**: A central LLM breaks down tasks and delegates to worker LLMs
+5. **Evaluator-Optimizer**: One LLM generates a response, another provides feedback in a loop
+6. **Agent**: LLM calling tools based on environmental feedback 
+
+
+### 1. Prompt Chaining
+
+In prompt chaining, each LLM call processes the output of the previous one. This workflow is ideal for tasks that can be decomposed into fixed subtasks.
+
+The implementation creates a joke, checks if it has a punchline, and if needed, improves and polishes it.
+
+### 2. Parallelization
+
+With parallelization, LLMs work simultaneously on different aspects of a task. Results are aggregated at the end.
+
+The implementation creates a joke, story, and poem about a topic in parallel, then combines them into a single output.
+
+### 3. Routing
+
+Routing classifies an input and directs it to a specialized followup task. This allows for separation of concerns and more focused prompts.
+
+The implementation routes user requests to either a story writer, joke generator, or poem creator based on the input.
+
+### 4. Orchestrator-Worker
+
+In the orchestrator-worker pattern, a central LLM dynamically breaks down tasks, delegates them to worker LLMs, and synthesizes the results.
+
+The implementation generates a report by planning sections and assigning each section to a worker LLM.
+
+### 5. Evaluator-Optimizer
+
+In the evaluator-optimizer pattern, one LLM generates content while another provides evaluation and feedback in a loop until quality criteria are met.
+
+The implementation generates jokes and evaluates them, providing feedback and regenerating until the joke is deemed funny.
+
+### 6. Agent
+
+Agents use tools based on environmental feedback in a loop. They can handle open-ended problems where it's difficult to predict the required steps.
+
+The implementation creates an agent that can perform arithmetic operations using tools for addition, multiplication, and division.
+## Acknowledgements
+
+- Groq for providing the high-performance AI models
+- OpenRouter for additional model access
+- React and Express.js communities for excellent frameworks
