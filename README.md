@@ -102,6 +102,38 @@ The backend provides several API endpoints:
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 🙏 Acknowledgements
+Create a session
+Create a Together Code Interpreter session that you can use to execute code. Each session is billed at $0.03/session.
+code_interpreter = client.code_interpreter
+Execute Python code in an active session
+Execute code in a secure sandboxed environment, install Python libraries, upload files, and conduct fully fledged data analysis experiments.
+# Simple print statement
+print("Example 1: Simple print")
+response = code_interpreter.run(
+    code='print("Hello from Together!")',
+    language="python"
+)
+print(f"Status: {response.data.status}")
+for output in response.data.outputs:
+    print(f"{output.type}: {output.data}")
+if response.data.errors:
+    print(f"Errors: {response.data.errors}")
+print("\n")
+Maintain the state between runs
+The session_id can be used to access a previously initialized session. All packages, variables and memory will be retained.
+session_id = response1.data.session_id
+
+response2 = code_interpreter.run(
+    code='print(f"The value of x is {x}")',
+    language="python",
+    session_id=session_id
+)
+
+for output in response2.data.outputs:
+    print(f"{output.type}: {output.data}")
+if response2.data.errors:
+    print(f"Errors: {response2.data.errors}")
+print("\n")
 
 - [shadcn/ui](https://ui.shadcn.com/) for the component system
 - [Vercel](https://vercel.com/) for the AI SDK
