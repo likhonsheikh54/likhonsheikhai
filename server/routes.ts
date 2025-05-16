@@ -1,7 +1,14 @@
-import type { Express } from "express";
+import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import fetch from "node-fetch";
+import { 
+  insertConversationSchema, 
+  insertMessageSchema, 
+  insertCheckpointSchema,
+  insertSettingsSchema
+} from "@shared/schema";
+import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // AI Agent API endpoint
