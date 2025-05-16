@@ -1,0 +1,28 @@
+# Likhon Sheikh AI Coding Agent - LLM Context File
+
+# Site Description
+Likhon Sheikh AI Coding Agent is a modern AI assistant built specifically for developers. With advanced capabilities for multi-provider AI models, real-time code generation, multi-language support, and conversation management, it helps developers build applications faster and more efficiently.
+
+# Core Features
+- Multi-provider AI support (Groq, OpenRouter, LangBase)
+- Responsive UI with mobile-first design
+- Dark/light mode support
+- Conversation history and checkpoint management
+- Code generation with syntax highlighting
+- Multiple programming language support
+
+# Page Structure
+- Home: Landing page with feature overview and get started options
+- Projects: Browse, create and manage coding projects
+- Modules: Explore and install various AI coding modules/extensions
+- Docs: Comprehensive documentation and guides
+- Settings: Configuration for AI models, appearance, and API keys
+
+# Important Keywords
+likhon sheikh, ai coding agent, ai code assistant, code generation, multi-provider ai, groq, openrouter, developer tools, coding automation, conversation management, checkpoint management, dark mode, mobile responsive
+
+# Do Not Crawl
+admin/*, api/*
+
+# Last Updated
+2025-05-16
