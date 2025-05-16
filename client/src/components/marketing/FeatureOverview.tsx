@@ -1,79 +1,76 @@
-import { Code, Cpu, Palette, Lightbulb, ImagePlus, Zap } from "lucide-react";
+import { Code, Wand2, Braces, Layers, Workflow, Webhook } from "lucide-react";
 
 export default function FeatureOverview() {
+  const features = [
+    {
+      title: "Code Generation",
+      description: "Convert natural language descriptions into fully functional code with best practices",
+      icon: <Code className="h-6 w-6" />,
+      color: "blue"
+    },
+    {
+      title: "AI-Powered Creativity",
+      description: "Generate UI components, design patterns, and creative solutions to complex problems",
+      icon: <Wand2 className="h-6 w-6" />,
+      color: "purple"
+    },
+    {
+      title: "Multiple Languages",
+      description: "Support for JavaScript, TypeScript, Python, Rust, Go, and many other languages",
+      icon: <Braces className="h-6 w-6" />,
+      color: "green"
+    },
+    {
+      title: "Full-Stack Development",
+      description: "From frontend UI to backend services, databases, and APIs - all from natural language",
+      icon: <Layers className="h-6 w-6" />,
+      color: "amber"
+    },
+    {
+      title: "Workflows & Automation",
+      description: "Create, edit, and optimize development workflows and CI/CD pipelines",
+      icon: <Workflow className="h-6 w-6" />,
+      color: "rose"
+    },
+    {
+      title: "API Integration",
+      description: "Seamlessly connect with external services, craft webhooks, and implement auth flows",
+      icon: <Webhook className="h-6 w-6" />,
+      color: "indigo"
+    }
+  ];
+  
+  const getColorClasses = (color: string) => {
+    const colorMap: {[key: string]: {bg: string, text: string, border: string}} = {
+      blue: { bg: "bg-blue-100 dark:bg-blue-950", text: "text-blue-600 dark:text-blue-300", border: "border-blue-200 dark:border-blue-800" },
+      purple: { bg: "bg-purple-100 dark:bg-purple-950", text: "text-purple-600 dark:text-purple-300", border: "border-purple-200 dark:border-purple-800" },
+      green: { bg: "bg-green-100 dark:bg-green-950", text: "text-green-600 dark:text-green-300", border: "border-green-200 dark:border-green-800" },
+      amber: { bg: "bg-amber-100 dark:bg-amber-950", text: "text-amber-600 dark:text-amber-300", border: "border-amber-200 dark:border-amber-800" },
+      rose: { bg: "bg-rose-100 dark:bg-rose-950", text: "text-rose-600 dark:text-rose-300", border: "border-rose-200 dark:border-rose-800" },
+      indigo: { bg: "bg-indigo-100 dark:bg-indigo-950", text: "text-indigo-600 dark:text-indigo-300", border: "border-indigo-200 dark:border-indigo-800" }
+    };
+    
+    return colorMap[color] || colorMap.blue;
+  };
+  
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-      {/* Feature 1 */}
-      <div className="bg-secondary/50 rounded-lg p-5 hover:bg-secondary/80 transition-colors">
-        <div className="h-10 w-10 rounded-lg bg-primary/20 text-primary flex items-center justify-center mb-4">
-          <Lightbulb className="h-5 w-5" />
-        </div>
-        <h3 className="text-lg font-medium mb-2">No-code needed</h3>
-        <p className="text-muted-foreground">
-          Tell Agent your app or website idea, and it will build it for you automatically. 
-          It's like having an entire team of software engineers on demand.
-        </p>
-      </div>
-
-      {/* Feature 2 */}
-      <div className="bg-secondary/50 rounded-lg p-5 hover:bg-secondary/80 transition-colors">
-        <div className="h-10 w-10 rounded-lg bg-blue-600/20 text-blue-400 flex items-center justify-center mb-4">
-          <Zap className="h-5 w-5" />
-        </div>
-        <h3 className="text-lg font-medium mb-2">From idea to prototype</h3>
-        <p className="text-muted-foreground">
-          The best tool for both technical & non-technical creators. Agent 
-          walks you through it step-by-step in plain English.
-        </p>
-      </div>
-
-      {/* Feature 3 */}
-      <div className="bg-secondary/50 rounded-lg p-5 hover:bg-secondary/80 transition-colors">
-        <div className="h-10 w-10 rounded-lg bg-green-600/20 text-green-400 flex items-center justify-center mb-4">
-          <ImagePlus className="h-5 w-5" />
-        </div>
-        <h3 className="text-lg font-medium mb-2">Inspiration to implementation</h3>
-        <p className="text-muted-foreground">
-          See an app or website that inspires you? Simply screenshot, upload, and Agent 
-          will build it for you with customizations.
-        </p>
-      </div>
-
-      {/* Feature 4 */}
-      <div className="bg-secondary/50 rounded-lg p-5 hover:bg-secondary/80 transition-colors">
-        <div className="h-10 w-10 rounded-lg bg-amber-600/20 text-amber-400 flex items-center justify-center mb-4">
-          <Code className="h-5 w-5" />
-        </div>
-        <h3 className="text-lg font-medium mb-2">Write faster code</h3>
-        <p className="text-muted-foreground">
-          Generate large chunks of code at once, useful when writing small 
-          programs or several related functions in one shot.
-        </p>
-      </div>
-
-      {/* Feature 5 */}
-      <div className="bg-secondary/50 rounded-lg p-5 hover:bg-secondary/80 transition-colors">
-        <div className="h-10 w-10 rounded-lg bg-purple-600/20 text-purple-400 flex items-center justify-center mb-4">
-          <Cpu className="h-5 w-5" />
-        </div>
-        <h3 className="text-lg font-medium mb-2">Intelligent optimization</h3>
-        <p className="text-muted-foreground">
-          Refactor your code to run faster, translate it into another language, 
-          and make it easier to read and maintain.
-        </p>
-      </div>
-
-      {/* Feature 6 */}
-      <div className="bg-secondary/50 rounded-lg p-5 hover:bg-secondary/80 transition-colors">
-        <div className="h-10 w-10 rounded-lg bg-pink-600/20 text-pink-400 flex items-center justify-center mb-4">
-          <Palette className="h-5 w-5" />
-        </div>
-        <h3 className="text-lg font-medium mb-2">UI/UX expertise</h3>
-        <p className="text-muted-foreground">
-          Get help designing beautiful, responsive interfaces with optimized 
-          user experiences across all devices.
-        </p>
-      </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {features.map((feature, index) => {
+        const colors = getColorClasses(feature.color);
+        
+        return (
+          <div 
+            key={index} 
+            className={`p-5 rounded-lg border ${colors.border} ${colors.bg} flex flex-col`}
+          >
+            <div className={`${colors.text} mb-3`}>
+              {feature.icon}
+            </div>
+            <h3 className="text-lg font-medium mb-2">{feature.title}</h3>
+            <p className="text-sm text-muted-foreground">{feature.description}</p>
+          </div>
+        );
+      })}
     </div>
   );
 }
